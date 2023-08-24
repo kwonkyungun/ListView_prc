@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+    <Button
+        android:id="@+id/btn1_alert"
+        android:text="dialog"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btn2_custom"
+        android:text="custom dialog"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn3_date"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Date picker dialog"
+        android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/btn4_time"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Time picker dialog"
+        android:layout_marginTop="20dp" />
+    <Button
+        android:id="@+id/btn5_porgress"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="progress dialog" />
+
 </LinearLayout>
