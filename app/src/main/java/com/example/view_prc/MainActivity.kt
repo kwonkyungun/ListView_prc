@@ -21,15 +21,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val dataList = mutableListOf<MyItem>()
-        dataList.add(MyItem(R.drawable.accessibility, "Bella", "1"))
-        dataList.add(MyItem(R.drawable.account_circle, "Charlie", "2"))
-        dataList.add(MyItem(R.drawable.alarm, "Daisy", "1.5"))
-        dataList.add(MyItem(R.drawable.all_out, "Duke", "1"))
-        dataList.add(MyItem(R.drawable.anchor, "Max", "2"))
-        dataList.add(MyItem(R.drawable.android, "Happy", "4"))
-        dataList.add(MyItem(R.drawable.assignment_ind, "Luna", "3"))
-        dataList.add(MyItem(R.drawable.build, "Bob", "2"))
-
+        dataList.add(MyItem(R.drawable.accessibility, "지윤", "010-7236-4625",1))
+        dataList.add(MyItem(R.drawable.account_circle, "태윤", "010-6947-3562",1))
+        dataList.add(MyItem(R.drawable.alarm, "민규", "010-6992-1262",1))
+        dataList.add(MyItem(R.drawable.all_out, "윤재", "010-4164-7948",0))
+        dataList.add(MyItem(R.drawable.anchor, "연우", "010-7495-1435",1))
+        dataList.add(MyItem(R.drawable.android, "정민", "010-7254-1826",0))
+        dataList.add(MyItem(R.drawable.assignment_ind, "주안", "010-4836-2585",1))
+        dataList.add(MyItem(R.drawable.build, "성현", "010-5286-4852",0))
+        dataList.add(MyItem(R.drawable.credit_card, "준수", "010-7681-4275",1))
+        dataList.add(MyItem(R.drawable.language, "지훈", "010-4715-1825",1))
 
         binding.listView.adapter = MyAdapter(dataList)
 

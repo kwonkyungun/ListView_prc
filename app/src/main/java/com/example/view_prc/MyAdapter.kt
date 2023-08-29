@@ -1,37 +1,76 @@
 package com.android.customitemview
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.view_prc.MyItem
-import com.example.view_prc.R
-import com.example.view_prc.databinding.ItemReciclerviewBinding
+import com.example.view_prc.databinding.Item1Binding
+import com.example.view_prc.databinding.Item2Binding
+import java.lang.RuntimeException
 
-class MyAdapter(val mItems: MutableList<MyItem>) : RecyclerView.Adapter<MyAdapter.Holder>() {
+
+class MyAdapter(val mItems: MutableList<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface ItemClick {
-        fun onClick(view : View, position : Int)
+        fun onClick(view: View, position: Int)
     }
 
-    var itemClick : ItemClick? = null
+    var itemClick: ItemClick? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val binding = ItemReciclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return Holder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val adapterLayout: View?
+        return when (viewType) {
+            MyItem.VIEW_TYPE_LEFT -> {
+                val binding =
+                    Item1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return Holder1(binding)
+            }
+
+            MyItem.VIEW_TYPE_RIGHT -> {
+                val binding =
+                    Item2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return Holder2(binding)
+            }
+
+            else -> throw RuntimeException("알수 없는 뷰 타입")
+        }
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {  //클릭이벤트추가부분
             itemClick?.onClick(it, position)
         }
-        holder.iconImageView.setImageResource(mItems[position].aIcon)
-        holder.name.text = mItems[position].aName
-        holder.age.text = mItems[position].aAge
+
+        val contacct = mItems[position]
+
+        when (contacct.viewType) {
+            MyItem.VIEW_TYPE_LEFT -> {
+                if (holder is Holder1) {
+                    holder.iconImageView1.setImageResource(mItems[position].aIcon)
+                    holder.name1.text = mItems[position].aName
+                    holder.pone1.text = mItems[position].aPone
+                    holder.setIsRecyclable(false)
+                }
+            }
+
+            MyItem.VIEW_TYPE_RIGHT -> {
+                if (holder is Holder2) {
+                    holder.iconImageView2.setImageResource(mItems[position].aIcon)
+                    holder.name2.text = mItems[position].aName
+                    holder.pone2.text = mItems[position].aPone
+                    holder.setIsRecyclable(false)
+                }
+            }
+
+        }
+
+
+    }
+
+    override fun getItemViewType(position: Int): Int {
+
+        return mItems[position].viewType
     }
 
     override fun getItemId(position: Int): Long {
@@ -42,9 +81,15 @@ class MyAdapter(val mItems: MutableList<MyItem>) : RecyclerView.Adapter<MyAdapte
         return mItems.size
     }
 
-    inner class Holder(val binding: ItemReciclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
-        val iconImageView = binding.iconItem
-        val name = binding.textItem1
-        val age = binding.textItem2
+    inner class Holder1(val binding: Item1Binding) : RecyclerView.ViewHolder(binding.root) {
+        val iconImageView1 = binding.imageView1
+        val name1 = binding.nameText1
+        val pone1 = binding.poneNumber1
+    }
+
+    inner class Holder2(val binding: Item2Binding) : RecyclerView.ViewHolder(binding.root) {
+        val iconImageView2 = binding.imageView2
+        val name2 = binding.nameText2
+        val pone2 = binding.poneNumber2
     }
 }
