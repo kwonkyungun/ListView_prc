@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.view_prc.MyItem
+import com.example.view_prc.MyItem.Companion.VIEW_TYPE_LEFT
+import com.example.view_prc.MyItem.Companion.VIEW_TYPE_RIGHT
 import com.example.view_prc.databinding.Item1Binding
 import com.example.view_prc.databinding.Item2Binding
 import java.lang.RuntimeException
@@ -20,14 +22,15 @@ class MyAdapter(val mItems: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val adapterLayout: View?
+        // 뷰 타입을 추가
         return when (viewType) {
-            MyItem.VIEW_TYPE_LEFT -> {
+            VIEW_TYPE_LEFT -> {
                 val binding =
                     Item1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return Holder1(binding)
             }
 
-            MyItem.VIEW_TYPE_RIGHT -> {
+            VIEW_TYPE_RIGHT -> {
                 val binding =
                     Item2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return Holder2(binding)
@@ -42,35 +45,36 @@ class MyAdapter(val mItems: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             itemClick?.onClick(it, position)
         }
 
-        val contacct = mItems[position]
+        val contact = mItems[position]
 
-        when (contacct.viewType) {
-            MyItem.VIEW_TYPE_LEFT -> {
+        when (contact.Favorites) {
+            VIEW_TYPE_LEFT -> {
                 if (holder is Holder1) {
                     holder.iconImageView1.setImageResource(mItems[position].aIcon)
                     holder.name1.text = mItems[position].aName
-                    holder.pone1.text = mItems[position].aPone
+                    holder.pone1.text = mItems[position].aPhone
                     holder.setIsRecyclable(false)
                 }
             }
 
-            MyItem.VIEW_TYPE_RIGHT -> {
+            VIEW_TYPE_RIGHT -> {
                 if (holder is Holder2) {
                     holder.iconImageView2.setImageResource(mItems[position].aIcon)
                     holder.name2.text = mItems[position].aName
-                    holder.pone2.text = mItems[position].aPone
+                    holder.pone2.text = mItems[position].aPhone
                     holder.setIsRecyclable(false)
                 }
             }
-
         }
-
-
     }
 
     override fun getItemViewType(position: Int): Int {
 
-        return mItems[position].viewType
+        if (mItems[position].Favorites == 1) {
+            return VIEW_TYPE_LEFT
+        }else
+            return VIEW_TYPE_RIGHT
+
     }
 
     override fun getItemId(position: Int): Long {
